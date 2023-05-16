@@ -1,5 +1,6 @@
 package com.example.exchange.controller;
 
+import com.example.exchange.model.Currencies;
 import com.example.exchange.model.PropertiesDto;
 import com.example.exchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,10 @@ public class ExchangeController {
     public ResponseEntity<PropertiesDto> getProperties() {
         return new ResponseEntity<>(exchangeService.getProperties(), HttpStatus.OK);
 //        return ResponseEntity.ok(exchangeService.getProperties());
+    }
+
+    @GetMapping("/symbols")
+    public ResponseEntity<Currencies> getAllCurrencies(){
+        return new ResponseEntity<>(exchangeService.getAllCurrencies(), HttpStatus.OK);
     }
 }
