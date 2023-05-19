@@ -23,6 +23,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
     
     //TOODO converrt
+    //TODO poczytaj o solid
     
     @Override public PropertiesDto getProperties() {
         return new PropertiesDto(properties.getApiKey(), properties.getBaseUrl());
