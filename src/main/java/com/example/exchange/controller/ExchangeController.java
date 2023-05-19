@@ -6,25 +6,29 @@ import com.example.exchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/exchange")
 public class ExchangeController {
 
-    private final ExchangeService exchangeService;
+    private final ExchangeService exchangeServiceImpl;
 
     @GetMapping("/properties")
     public ResponseEntity<PropertiesDto> getProperties() {
-        return new ResponseEntity<>(exchangeService.getProperties(), HttpStatus.OK);
+        return new ResponseEntity<>(exchangeServiceImpl.getProperties(), HttpStatus.OK);
 //        return ResponseEntity.ok(exchangeService.getProperties());
     }
 
     @GetMapping("/symbols")
     public ResponseEntity<Currencies> getAllCurrencies(){
-        return new ResponseEntity<>(exchangeService.getAllCurrencies(), HttpStatus.OK);
+        return new ResponseEntity<>(exchangeServiceImpl.getAllCurrencies(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/convert", params = "mail")
+    public ResponseEntity<Void> convertAndSend(@RequestParam String mail){
+        exchangeServiceImpl.convertWithMail(mail);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
