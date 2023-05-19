@@ -22,7 +22,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         emailService.sendSimpleMessage(mail);
     }
     
-    
+    //TOODO converrt
     
     @Override public PropertiesDto getProperties() {
         return new PropertiesDto(properties.getApiKey(), properties.getBaseUrl());
