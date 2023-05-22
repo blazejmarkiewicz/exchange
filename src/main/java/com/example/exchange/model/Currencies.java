@@ -6,7 +6,5 @@ import java.util.Map;
 
 @Data
 public class Currencies {
-
     private Map<String, String> symbols;
-
 }
