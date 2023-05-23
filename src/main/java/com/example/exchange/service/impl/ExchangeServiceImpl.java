@@ -9,6 +9,8 @@ import com.example.exchange.service.EmailService;
 import com.example.exchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Service
 @RequiredArgsConstructor
 public class ExchangeServiceImpl implements ExchangeService {
@@ -17,16 +19,17 @@ public class ExchangeServiceImpl implements ExchangeService {
     private final EmailService emailService;
 
     @Override
-    public void convertWithMail(String mail, String fromCurrency, String toCurrency, double amount) {
-        ExchangeResult exchangeResult = exchangeApiClient.convertCurrency(properties.getApiKey(), fromCurrency, toCurrency, amount);
+    public void convertWithMail(String mail, String to, String from, double amount) {
+        ExchangeResult exchangeResult = exchangeApiClient.convertCurrency(properties.getApiKey(), to, from, amount);
         emailService.sendSimpleMessage(mail, exchangeResult);
     }
 
     @Override
-    public ExchangeResult convertCurrency(String from, String to, double amount) {
-        return exchangeApiClient.convertCurrency(properties.getApiKey(), from, to, amount);
+    public ExchangeResult convertCurrency(String to, String from, double amount) {
+        return exchangeApiClient.convertCurrency(properties.getApiKey(), to, from, amount);
     }
 
+    
     @Override
     public PropertiesDto getProperties() {
         return new PropertiesDto(properties.getApiKey(), properties.getBaseUrl());
@@ -37,4 +40,3 @@ public class ExchangeServiceImpl implements ExchangeService {
         return exchangeApiClient.findAllCurrencies(properties.getApiKey());
     }
 }
-

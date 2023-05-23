@@ -1,18 +1,14 @@
 package com.example.exchange.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class ExchangeResult {
-    private String fromCurrency;
-    private String toCurrency;
+    private String to;
+    private String from;
     private double amount;
-    private double convertedAmount;
-    private double exchangeRate;
+    private double result;
+    private boolean success;
+
+
 }

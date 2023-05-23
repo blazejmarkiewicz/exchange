@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -26,12 +27,10 @@ public class EmailService {
     private String buildMailBody(ExchangeResult exchangeResult) {
         StringBuilder bodyBuilder = new StringBuilder();
         bodyBuilder.append("Exchange Result:\n");
-        bodyBuilder.append("From: ").append(exchangeResult.getFromCurrency()).append("\n");
-        bodyBuilder.append("To: ").append(exchangeResult.getToCurrency()).append("\n");
+        bodyBuilder.append("From: ").append(exchangeResult.getFrom()).append("\n");
+        bodyBuilder.append("To: ").append(exchangeResult.getTo()).append("\n");
         bodyBuilder.append("Amount: ").append(exchangeResult.getAmount()).append("\n");
-        bodyBuilder.append("Converted Amount: ").append(exchangeResult.getConvertedAmount()).append("\n");
-        bodyBuilder.append("Exchange Rate: ").append(exchangeResult.getExchangeRate()).append("\n");
+        bodyBuilder.append("Converted Amount: ").append(exchangeResult.getAmount()).append("\n");
         return bodyBuilder.toString();
     }
 }
-

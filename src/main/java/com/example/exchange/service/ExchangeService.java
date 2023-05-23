@@ -5,9 +5,9 @@ import com.example.exchange.model.ExchangeResult;
 import com.example.exchange.model.PropertiesDto;
 
 public interface ExchangeService {
-    void convertWithMail(String mail, String fromCurrency, String toCurrency, double amount);
+    void convertWithMail(String mail, String to, String from, double amount);
 
-    ExchangeResult convertCurrency(String from, String to, double amount);
+    ExchangeResult convertCurrency(String to, String from, double amount);
 
     PropertiesDto getProperties();
 

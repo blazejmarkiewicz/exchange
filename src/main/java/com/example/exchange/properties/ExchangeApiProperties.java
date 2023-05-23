@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 public class ExchangeApiProperties {
-
     private String apiKey;
     private String baseUrl;
 }

@@ -3,6 +3,7 @@ package com.example.exchange.controller;
 import com.example.exchange.model.Currencies;
 import com.example.exchange.model.ExchangeResult;
 import com.example.exchange.model.PropertiesDto;
+import com.example.exchange.service.EmailService;
 import com.example.exchange.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/exchange")
 public class ExchangeController {
     private final ExchangeService exchangeService;
+    private final EmailService emailService;
 
     @GetMapping("/properties")
     public ResponseEntity<PropertiesDto> getProperties() {
@@ -28,21 +30,31 @@ public class ExchangeController {
     @PostMapping(value = "/convert", params = "mail")
     public ResponseEntity<Void> convertAndSend(
             @RequestParam String mail,
-            @RequestParam String fromCurrency,
-            @RequestParam String toCurrency,
+            @RequestParam String to,
+            @RequestParam String from,
             @RequestParam double amount
     ) {
-        exchangeService.convertWithMail(mail, fromCurrency, toCurrency, amount);
+        ExchangeResult exchangeResult = exchangeService.convertCurrency(to, from, amount);
+        emailService.sendSimpleMessage(mail, exchangeResult);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/convert")
+    @GetMapping("/convert")
     public ResponseEntity<ExchangeResult> convert(
-            @RequestParam String from,
             @RequestParam String to,
+            @RequestParam String from,
             @RequestParam double amount
     ) {
-        ExchangeResult result = exchangeService.convertCurrency(from, to, amount);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        ExchangeResult result = exchangeService.convertCurrency(to, from, amount);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+
+
+
+
 }

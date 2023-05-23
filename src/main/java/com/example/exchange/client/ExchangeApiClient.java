@@ -8,17 +8,18 @@ import feign.RequestLine;
 
 public interface ExchangeApiClient {
 
-
     @RequestLine("GET /symbols")
     @Headers("apikey: {apiKey}")
     Currencies findAllCurrencies(@Param("apiKey") String apiKey);
 
-    @RequestLine("GET /convert?from={from}&to={to}&amount={amount}")
+    @RequestLine("GET /convert?to={to}&from={from}&amount={amount}")
     @Headers("apikey: {apiKey}")
     ExchangeResult convertCurrency(
             @Param("apiKey") String apiKey,
-            @Param("from") String from,
             @Param("to") String to,
+            @Param("from") String from,
             @Param("amount") double amount
     );
 }
+
+
