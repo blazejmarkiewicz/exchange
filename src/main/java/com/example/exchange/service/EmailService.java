@@ -27,10 +27,10 @@ public class EmailService {
     private String buildMailBody(ExchangeResult exchangeResult) {
         StringBuilder bodyBuilder = new StringBuilder();
         bodyBuilder.append("Exchange Result:\n");
-        bodyBuilder.append("From: ").append(exchangeResult.getFrom()).append("\n");
-        bodyBuilder.append("To: ").append(exchangeResult.getTo()).append("\n");
-        bodyBuilder.append("Amount: ").append(exchangeResult.getAmount()).append("\n");
-        bodyBuilder.append("Converted Amount: ").append(exchangeResult.getAmount()).append("\n");
+        bodyBuilder.append("From: ").append(exchangeResult.getQuery().getFrom()).append("\n");
+        bodyBuilder.append("To: ").append(exchangeResult.getQuery().getTo()).append("\n");
+        bodyBuilder.append("Amount: ").append(exchangeResult.getQuery().getAmount()).append("\n");
+        bodyBuilder.append("Converted Amount: ").append(exchangeResult.getQuery().getAmount()).append("\n");
         return bodyBuilder.toString();
     }
 }

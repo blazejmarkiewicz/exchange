@@ -4,9 +4,7 @@ import lombok.Data;
 
 @Data
 public class ExchangeResult {
-    private String to;
-    private String from;
-    private double amount;
+    private Query query;
     private double result;
     private boolean success;
 
